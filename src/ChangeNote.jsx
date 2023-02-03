@@ -39,8 +39,7 @@ export const ChangeNote = () => {
   if (result.isLoading) return <h1>Загрузка...</h1>;
   if (result.error) return <h1>{error}</h1>;
 
-  const formHandler = (e) => {
-    e.preventDefault();
+  const formHandler = () => {
     navigate("/");
   };
 
