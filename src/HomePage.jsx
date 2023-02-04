@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import uk from "date-fns/locale/uk";
 
 export const HomePage = () => {
-  const { data: notes = [], error, isLoading } = useGetAllNotesQuery();
+  const { data: notes = [], error, isLoading } = useGetAllNotesQuery(); //[], { pollingInterval: 3000 }
 
   if (isLoading) return <h1>Завантаження...</h1>;
   if (error) return <h1>{error}</h1>;
