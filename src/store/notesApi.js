@@ -19,9 +19,12 @@ export const notesApi = createApi({
             ]
           : [{ type: "Notes", id: "LIST" }],
     }),
+
     getNote: builder.query({
       query: (id) => `note/${id}`,
+      providesTags: (id) => [{ type: "Notes", id }],
     }),
+
     createNote: builder.mutation({
       query(body) {
         return {
@@ -32,6 +35,7 @@ export const notesApi = createApi({
       },
       invalidatesTags: [{ type: "Notes", id: "LIST" }],
     }),
+
     updateNote: builder.mutation({
       query(data) {
         const body = data;

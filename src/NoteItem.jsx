@@ -6,7 +6,11 @@ export const NoteItem = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data } = useGetNoteQuery(id);
+  const { data, refetch } = useGetNoteQuery(id, {
+    // pollingInterval: 3000,
+    refetchOnMountOrArgChange: true,
+    // skip: false,
+  });
 
   const [deleteNote, result] = useDeleteNoteMutation();
 
@@ -23,7 +27,7 @@ export const NoteItem = () => {
   if (result.error) return <h1>{error}</h1>;
 
   return (
-    <div>
+    <div className="mt-8">
       <h1 className="mb-4 font-semibold text-xl text-center">{data?.title}</h1>
       <p className="pb-8">{data?.text}</p>
       <div className="flex flex-col gap-4">
@@ -31,13 +35,13 @@ export const NoteItem = () => {
           to={`/${id}/edit`}
           className="bg-yellow-400 dark:bg-yellow-500 dark:text-black max-w-[220px] w-full mx-auto py-2 rounded-md text-center"
         >
-          Изменить
+          Змiнити
         </Link>
         <button
           onClick={removeNoteHandler}
           className="bg-red-400 dark:bg-red-600 max-w-[120px] w-full mx-auto py-1 rounded-md"
         >
-          Удалить
+          Видалити
         </button>
       </div>
     </div>
