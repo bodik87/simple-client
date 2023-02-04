@@ -14,12 +14,13 @@ export const ChangeNote = () => {
   const [deleteNote, result] = useDeleteNoteMutation();
   const [updateNote] = useUpdateNoteMutation();
 
+  const [title, setTitle] = useState(data?.title);
   const [text, setText] = useState(data?.text);
 
   const submitHandler = async () => {
     try {
       if (text) {
-        await updateNote({ text, id }).unwrap();
+        await updateNote({ title, text, id }).unwrap();
         setText("");
       }
     } catch (error) {
@@ -36,7 +37,7 @@ export const ChangeNote = () => {
     }
   };
 
-  if (result.isLoading) return <h1>Загрузка...</h1>;
+  if (result.isLoading) return <h1>Завантаження...</h1>;
   if (result.error) return <h1>{error}</h1>;
 
   const formHandler = (e) => {
@@ -46,28 +47,33 @@ export const ChangeNote = () => {
 
   return (
     <div>
-      <h1 className="mb-4 font-semibold text-xl text-center">
-        Изменить заметку
-      </h1>
+      <h1 className="mb-4 font-semibold text-xl text-center">Змiнити запис</h1>
       <form onSubmit={formHandler} className="flex flex-col gap-4">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="rounded-xl p-4 border border-black"
+          placeholder="Додайте назву"
+          type="text"
+        />
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="rounded-xl p-4"
+          className="rounded-xl p-4 border border-black"
           cols="30"
           rows="10"
         />
         <button
           onClick={submitHandler}
-          className="bg-blue-600 max-w-[220px] w-full mx-auto py-2 rounded-md"
+          className="bg-blue-600 text-white max-w-[220px] w-full mx-auto py-2 rounded-md"
         >
-          Изменить
+          Змiнити
         </button>
         <button
           onClick={removeNoteHandler}
-          className="bg-red-600 max-w-[120px] w-full mx-auto py-1 rounded-md"
+          className="bg-red-600 text-white max-w-[120px] w-full mx-auto py-1 rounded-md"
         >
-          Удалить
+          Видалити
         </button>
       </form>
     </div>

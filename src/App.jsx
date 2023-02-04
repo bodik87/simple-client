@@ -1,26 +1,30 @@
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { HomePage } from "./HomePage";
 
 function App() {
   const location = useLocation();
   const home = location.pathname === "/";
-  const activeStyle = { textDecoration: "underline", color: "red" };
   return (
-    <div className="px-2 max-w-lg mx-auto">
-      <nav className="py-2 flex gap-3 mb-4">
-        <NavLink
-          to="/"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          Домой
-        </NavLink>
+    <div className="px-4 max-w-lg mx-auto">
+      <nav className="flex gap-3 my-6 justify-between">
+        {home ? (
+          <h1 className="font-bold text-lg text-black bg-blue-500 px-3 py-1 rounded-lg">
+            FULLSTACK NOTES
+          </h1>
+        ) : (
+          <Link className="underline underline-offset-4 text-blue-600" to="/">
+            На головну
+          </Link>
+        )}
 
-        <NavLink
-          to="add"
-          style={({ isActive }) => (isActive ? activeStyle : undefined)}
-        >
-          Добавить
-        </NavLink>
+        {home && (
+          <Link
+            to="add"
+            className="font-bold text-xl text-black bg-green-500 px-3 rounded-lg"
+          >
+            +
+          </Link>
+        )}
       </nav>
 
       {home ? <HomePage /> : <Outlet />}

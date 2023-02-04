@@ -4,14 +4,15 @@ import { useCreateNoteMutation } from "./store/notesApi";
 
 export const AddNote = () => {
   const navigate = useNavigate();
+  const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
   const [addNote, result] = useCreateNoteMutation();
 
   const submitHandler = async () => {
     try {
-      if (text) {
-        await addNote({ text }).unwrap();
+      if ((title, text)) {
+        await addNote({ title, text }).unwrap();
         setText("");
       }
       navigate("/");
@@ -25,23 +26,29 @@ export const AddNote = () => {
 
   return (
     <div>
-      <h1 className="mb-4 font-semibold text-xl text-center">
-        Добавить заметку
-      </h1>
+      <h1 className="mb-4 font-semibold text-xl text-center">Додати запис</h1>
       <form className="flex flex-col gap-4">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="rounded-xl p-4 border border-black"
+          placeholder="Додайте назву"
+          type="text"
+        />
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="rounded-xl p-4"
+          className="rounded-xl p-4 border border-black"
+          placeholder="Додайте текст"
           cols="30"
           rows="10"
         />
         <button
           type="submit"
           onClick={submitHandler}
-          className="bg-green-600 max-w-[220px] w-full mx-auto py-2 rounded-md"
+          className="bg-green-600 text-white max-w-[220px] w-full mx-auto py-2 rounded-md"
         >
-          Создать
+          Додати
         </button>
       </form>
     </div>

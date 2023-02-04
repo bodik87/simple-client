@@ -5,8 +5,8 @@ export const notesApi = createApi({
   tagTypes: ["Notes"],
   baseQuery: fetchBaseQuery({
     baseUrl:
-      "https://simple-server-ue0u.onrender.com/server" ||
-      "http://localhost:5005/server",
+      "http://localhost:5005/server" ||
+      "https://simple-server-ue0u.onrender.com/server",
   }),
   endpoints: (builder) => ({
     getAllNotes: builder.query({
